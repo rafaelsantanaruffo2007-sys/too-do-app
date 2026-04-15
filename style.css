@@ -1,0 +1,59 @@
+/* mantém tudo igual ao anterior */
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Prioridades */
+.high { background: #ffe5e5; border-left: 5px solid red; }
+.medium { background: #fff5e5; border-left: 5px solid orange; }
+.low { background: #e5ffe5; border-left: 5px solid green; }
+
+/* concluído */
+.completed span {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
+}
+
+/* botão excluir */
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
