@@ -1,24 +1,38 @@
-
 const taskInput = document.getElementById("taskInput");
 const prioritySelect = document.getElementById("priority");
+const deadlineInput = document.getElementById("deadline");
 const taskList = document.getElementById("taskList");
-const addButton = document.querySelector("button");
+const addButton = document.getElementById("addBtn");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// Salvar no localStorage
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Criar elemento de tarefa
-function createTaskElement(task, index) {
-  const li = document.createElement("li");
-  li.classList.add(task.priority);
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleString("pt-BR");
+}
+
+// DEFINE STATUS
+function getStatus(task) {
+  const now = new Date();
+  const deadline = new Date(task.deadline);
 
   if (task.completed) {
-    li.classList.add("completed");
+    return (new Date(task.completedAt) <= deadline)
+      ? "completed"
+      : "overdue";
   }
+
+  return now > deadline ? "overdue" : "pending";
+}
+
+function createTaskElement(task, index) {
+  const li = document.createElement("li");
+
+  li.classList.add(task.priority);
+  li.classList.add(getStatus(task));
 
   const label = document.createElement("label");
 
@@ -27,16 +41,25 @@ function createTaskElement(task, index) {
   checkbox.checked = task.completed;
 
   checkbox.addEventListener("change", () => {
-    tasks[index].completed = checkbox.checked;
+    task.completed = checkbox.checked;
+    task.completedAt = new Date().toISOString();
     saveTasks();
     renderTasks();
   });
 
-  const span = document.createElement("span");
-  span.textContent = task.text;
+  const content = document.createElement("div");
+
+  const title = document.createElement("span");
+  title.textContent = task.text;
+
+  const deadline = document.createElement("small");
+  deadline.textContent = "Prazo: " + formatDate(task.deadline);
+
+  content.appendChild(title);
+  content.appendChild(deadline);
 
   label.appendChild(checkbox);
-  label.appendChild(span);
+  label.appendChild(content);
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "X";
@@ -54,45 +77,45 @@ function createTaskElement(task, index) {
   return li;
 }
 
-// Renderizar lista
 function renderTasks() {
   taskList.innerHTML = "";
 
   tasks.forEach((task, index) => {
-    const taskElement = createTaskElement(task, index);
-    taskList.appendChild(taskElement);
+    const el = createTaskElement(task, index);
+    taskList.appendChild(el);
   });
 }
 
-// Adicionar tarefa
 function addTask() {
   const text = taskInput.value.trim();
   const priority = prioritySelect.value;
+  const deadline = deadlineInput.value;
 
-  if (!text) return;
+  if (!text || !deadline) return;
 
   tasks.push({
     text,
     priority,
-    completed: false
+    deadline,
+    completed: false,
+    completedAt: null
   });
 
   taskInput.value = "";
+  deadlineInput.value = "";
+
   saveTasks();
   renderTasks();
 }
 
-// Evento do botão
 addButton.addEventListener("click", addTask);
 
-// Enter também adiciona tarefa
 taskInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    addTask();
-  }
+  if (e.key === "Enter") addTask();
 });
 
-// Inicialização
-rende
+renderTasks();
+
+
 
 

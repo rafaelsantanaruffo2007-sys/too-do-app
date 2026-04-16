@@ -1,24 +1,42 @@
-/* mantém tudo igual ao anterior */
-
 body {
   font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
   padding: 20px;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 550px;
   margin: auto;
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+h1 {
+  text-align: center;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
 }
 
 ul {
@@ -28,32 +46,36 @@ ul {
 }
 
 li {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  transition: 0.3s;
 }
 
-/* Prioridades */
-.high { background: #ffe5e5; border-left: 5px solid red; }
-.medium { background: #fff5e5; border-left: 5px solid orange; }
-.low { background: #e5ffe5; border-left: 5px solid green; }
+/* PRIORIDADE */
+.high { border-left: 6px solid red; }
+.medium { border-left: 6px solid orange; }
+.low { border-left: 6px solid green; }
 
-/* concluído */
-.completed span {
-  text-decoration: line-through;
-  color: gray;
-  opacity: 0.7;
+/* STATUS */
+.pending { background: #fff3cd; }
+.completed { background: #d4edda; }
+.overdue { background: #f8d7da; }
+
+small {
+  display: block;
+  font-size: 12px;
+  color: #555;
 }
 
-/* botão excluir */
 .delete-btn {
   background: red;
   color: white;
   border: none;
-  padding: 5px 8px;
+  padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
 }
